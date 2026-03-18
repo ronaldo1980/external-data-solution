@@ -1,0 +1,30 @@
+services:
+  api:
+    build:
+      context: .
+      dockerfile: src/ExternalData.Api/Dockerfile
+    container_name: externaldata-api
+    ports:
+      - "8080:8080"
+    environment:
+      ASPNETCORE_URLS: http://+:8080
+      ConnectionStrings__DefaultConnection: Data Source=/data/externaldata.db
+    volumes:
+      - externaldata_shared:/data
+    restart: unless-stopped
+
+  worker:
+    build:
+      context: .
+      dockerfile: src/ExternalData.Worker/Dockerfile
+    container_name: externaldata-worker
+    environment:
+      ConnectionStrings__DefaultConnection: Data Source=/data/externaldata.db
+    volumes:
+      - externaldata_shared:/data
+    depends_on:
+      - api
+    restart: unless-stopped
+
+volumes:
+  externaldata_shared:
