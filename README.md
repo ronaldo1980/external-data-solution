@@ -90,3 +90,23 @@ Na raiz da solução:
 
 ```bash
 dotnet build
+
+### Rodando a API
+
+```bash
+dotnet run --project src/ExternalData.Api
+
+---
+
+## Melhorias futuras
+
+Caso houvesse mais tempo para evolução da solução, algumas melhorias poderiam ser implementadas:
+
+- Implementação de políticas de retry e circuit breaker utilizando Polly para aumentar a resiliência na integração com a fonte externa.
+- Implementação de testes automatizados (unitários e de integração).
+- Inclusão de cache em memória ou Redis para reduzir acessos desnecessários ao banco.
+- Criação de health checks para monitoramento dos serviços.
+- Implementação de observabilidade com logs estruturados e métricas.
+- Suporte a múltiplas fontes externas configuráveis.
+- Uso de banco de dados mais robusto (ex: PostgreSQL) em cenário produtivo.
+- Implementação de autenticação/autorização na API.
